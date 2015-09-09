@@ -1,0 +1,73 @@
+<div>
+	<h3> Routing </h3>
+		<p>
+			We use one of two methods to declare all application routes in AngularJS: the when method and the otherwise method.
+			To create a route on a specific module or app, we use the config function.
+		</p>
+		<pre>
+			angular.module('myApp', []).
+			config(['$routeProvider', function($routeProvider) {
+			}]);
+		</pre>
+		<br>
+		Now, to add a specific route, we can use the when method. This method takes two parameters (when(path, route)). This block shows how can create a single route: <br>
+		<pre>
+		angular.module('myApp', []).
+			config(['$routeProvider', function($routeProvider) {
+				$routeProvider
+				.when('/', {
+				templateUrl: 'views/home.html',
+				controller: 'HomeController'
+			});
+		}]);
+	</pre>
+	<p>The first parameter is the route path, which is matched against the $location.path, the path of	the current URL. Trailing or double slashes will still work. We can store parameters in the URL	by starting off the name with a colon (for instance, :name). The second parameter is the configuration object, which determines exactly what to do if the route	in the first parameter is matched. The configuration object properties that we can set are controller, template, templateURL, resolve, redirectTo, and reloadOnSearch.
+	</p>
+
+	<h4> $routeParams </h4>
+	 If we start a route param with a colon (:), AngularJS will parse it out and pass it into the $routeParams. For instance, if we set up a route like so:
+	<pre>
+		$routeProvider
+		.when('/inbox/:name', {
+		controller: 'InboxController',
+		templateUrl: 'views/inbox.html'
+		})
+	</pre>
+
+	then Angular will populate the $routeParams with the key of :name, and the value of key will be populated with the value of the loaded URL. If the browser loads the URL /inbox/all, then the $routeParams object will look like:
+	<pre>
+		{ name: 'all' }
+	</pre>
+	<br>
+	To get access to these variables in the controller, we need to inject the $routeProvider
+	in the controller:
+	<pre>
+		app.controller('InboxController', function($scope, $routeParams) {
+		// We now have access to the $routeParams here
+		});
+	</pre>
+
+	<h4> $location Service </h4>	
+	<ul> <li>AngularJS provides a service that parses the URL in the address bar and gives you access to the route	of the current path of your applications.</li><li> It also gives you the ability to change paths and deal with any sort of navigation.
+	The $location service provides a nicer interface to the window.location JavaScript	object and integrates directly with our AngularJS apps.</li> <li> The $location service does not provide access to refreshing the entire page. If we need to refresh
+	the entire page, we need to use the $window.location object (an interface to window.location).</li></ul>
+	
+	<h4> Routing Modes </h4>
+
+	The routing mode refers specifically to the format of the URL in the browser address bar. The default behavior of the $location service is to route using the hashbang mode.
+	<ul> <br>
+	<li>	Hashbang Mode </li>
+	Hashbang mode is a trick that AngularJS uses to provide deep-linking capabilities to your Angular
+	apps. In hashbang mode (the fallback for html5 mode), URL paths take a prepended # character.
+	They do not rewrite 
+	<pre>
+		&lt;a href=""&gt;&lt;/a&gt; 
+	</pre>
+	tags and do not require any server-side support. Hashbang
+	mode is the default mode that AngularJS uses if it’s not told otherwise. 
+	<br> <li>
+	HTML5 Mode </li>
+	The other routing mode that AngularJS supports is html5Mode. This mode makes your URLs look like regular URLs.
+	</ul>
+
+</div>

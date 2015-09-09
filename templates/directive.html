@@ -1,0 +1,197 @@
+<div>
+	<h4> Directives </h4>
+	The directive method is defined on a module object. It helps us creating new HTML elements that have their own custom functionality. 
+
+	Directives can be combined with other directives and this phenomenon is called composition. 
+
+	After the directive is created on a module object, it can be used by these three ways:
+	<pre> 
+		1. &lt;name> &lt;/name&gt;
+		2. &lt;div name&gt; &lt;/div&gt;
+		3. &lt;div class="name"&gt; &lt;/div&gt; This way of using a directive is accepted by many browsers.
+	</pre>
+
+	 There are few in-built directives which create new child scope. <br>
+	 1. ng-controller <br>
+	 2. ng-include<br>
+	 3. ng-view<br>
+	 4. custom directives <br>
+
+	 <h5> Passing data to directives </h5>
+	 We do not have to hardcode the template in the directive. We can use the expressions {{}} in the template section. To pass the data, isolate scope is created. Isolate scope is different than the current scope and we can define properties on the isolate scope to pass data to directives. 
+
+	 We cannot set a value on the scope object directly. We have to copy the value/ binding strategy.
+
+	 First the value is set in the DOM via an attribute.
+
+	 Now, in the isolate object, the value of some property to @ (binding strategy).
+	
+	<pre>
+		scope: {
+			someProperty: @
+		} 
+	</pre>
+
+	<h4> Built-in Directives </h4>
+	<ul>
+		<li> 
+			<div ng-click="directiveObject.ngApp()"> ng-app </div>	
+			<p ng-show="directiveObject.ngAppId" ng-init="directiveObject.ngAppId=false">
+				It creates the root scope of an angular application. We can access $root scope in the run() method. We can only use ng-app once per document. If we include more ng-app in one document then we have to bootstrap manually. 
+			</p>
+			<pre ng-show="directiveObject.ngAppId" ng-init="directiveObject.ngAppId=false">
+			&lt;html ng-app="myApp"&gt;
+			&lt;body&gt;
+			{{ someProperty }}
+			&lt;button ng-click="someAction()"&gt;&lt;/button&gt;
+			&lt;/body&gt;
+			&lt;/html&gt;
+
+			angular.module('myApp', [])
+			.run(function($rootScope) {
+				$rootScope.someProperty = 'hello computer';
+				$rootScope.someAction = function() {
+				$rootScope.someProperty = 'hello human';
+				};
+			});
+			</pre>
+			
+		</li>
+
+		<li> 
+			<div ng-click="directiveObject.ngInclude()"> ng-include </div>	
+			<p ng-show="directiveObject.ngIncludeId" ng-init="directiveObject.ngIncludeId.=false">
+				You can use this directive to fetch, compile and include an external HTML fragment into your current application. Angular creates a new child scope when this directive is specified. If you weant to invoke a scope of another controller, you need to specify the controller explicitly. 
+			</p>
+
+			<pre ng-show="directiveObject.ngIncludeId" ng-init="directiveObject.ngIncludeId.=false">
+				&lt;div&gt; ng-include="/myTemplateName.html"
+					ng-controller="MyController"
+					ng-init="name = 'World'">
+					Hello {{ name }}
+				&lt;/div&gt;
+			</pre>			
+		</li>
+
+		<li> 
+			<div ng-click="directiveObject.ngSwitch()"> ng-switch </div>	
+			<p ng-show="directiveObject.ngSwitchId" ng-init="directiveObject.ngSwitchId=false">
+				When some specified condition is true, the the expression mentioned in the HTML is executed.
+			</p>
+			<pre ng-show="directiveObject.ngSwitchId" ng-init="directiveObject.ngSwitchId=false">
+				&lt;input type="text" ng-model="person.name"&gt;
+					&lt;div ng-switch on="person.name"&gt;&lt;/div&gt;
+					&lt;p ng-switch-default &gt;And the winner is&lt;/p&gt;
+					&lt;h1 ng-switch-when="Ari"&gt;{{ person.name }}&lt;/h1&gt;
+			</pre>
+		</li>
+
+		<li> 
+			<div ng-click="directiveObject.ngView()"> ng-view </div>	
+			<p ng-show="directiveObject.ngViewId" ng-init="directiveObject.ngViewId=false">
+				When this directive is specified, Angular knows where to put the template in DOM. This directive is just an indicator for Angular to show the template.
+			</p>
+			
+		</li>
+
+		<li> 
+			<div ng-click="directiveObject.ngIf()"> ng-if </div>	
+			<p ng-show="directiveObject.ngIfId" ng-init="directiveObject.ngIfId=false">
+				This directive is used to completely remove or recreate an Htl element in the DOM based on an specified expression. 
+			</p>
+			<pre ng-show="directiveObject.ngIfId" ng-init="directiveObject.ngIfId=false">
+				&lt;div ng-if="2 + 2 === 5"&gt;
+					Won't see this DOM node, not even in the source code
+				&lt;/div&gt;
+				&lt;div ng-if="2 + 2 === 4"&gt;
+					Hi, I do exist
+				&lt;/div&gt;
+			</pre>
+			
+		</li>
+
+		<li> 
+			<div ng-click="directiveObject.ngRepeat()"> ng-repeat </div>	
+			<p ng-show="directiveObject.ngRepeatId" ng-init="directiveObject.ngRepeatId=false">
+				The ngRepeat directive instantiates a template once per item from a collection. Each template instance gets its own scope, where the given loop variable is set to the current collection item, and $index is set to the item index or key.
+			</p>
+			<pre ng-show="directiveObject.ngRepeatId" ng-init="directiveObject.ngRepeatId=false">
+				&lt;ul ng-controller="PeopleController"&gt;
+				&lt;li ng-repeat="person in people" ng-class="{even: !$even, odd: !$odd}"&gt;
+				{{person.name}} lives in {{person.city}}
+				&lt;/li&gt;
+				&lt;/ul&gt;
+			</pre>		
+		</li>
+
+		<li> 
+			<div ng-click="directiveObject.ngHref()"> ng-href </div>	
+			<p ng-show="directiveObject.ngHrefId" ng-init="directiveObject.ngHrefId=false">
+				Using Angular markup like {{hash}} in an href attribute will make the link go to the wrong URL if the user clicks it before Angular has a chance to replace the {{hash}} markup with its value. Until Angular replaces the markup the link will be broken and will most likely return a 404 error. The ngHref directive solves this problem.
+			</p>
+
+			<pre ng-show="directiveObject.ngHrefId" ng-init="directiveObject.ngHrefId=false">
+				&lt;a ng-href="{{myHref}}"&gt;I'm feeling lucky, when I load&lt;/a&gt;
+			</pre>
+			
+		</li>
+
+		<li> 
+			<div ng-click="directiveObject.ngSrc()"> ng-src </div>	
+			<p ng-show="directiveObject.ngSrcId" ng-init="directiveObject.ngSrcId=false">
+				Using Angular markup like {{hash}} in a src attribute doesn't work right: The browser will fetch from the URL with the literal text {{hash}} until Angular replaces the expression inside {{hash}}. The ngSrc directive solves this problem.
+			</p>
+
+			<pre ng-show="directiveObject.ngSrcId" ng-init="directiveObject.ngSrcId=false">
+				&lt;h1&gt;Wrong Way&lt;/h1&gt;
+				&lt;img src="{{imgSrc}}" /&gt;
+				&lt;h1&gt;Right way&lt;/h1&gt;
+				&lt;img ng-src="{{imgSrc}}"/&gt;
+				
+				angular.module('myApp', [])
+					.run(function($rootScope, $timeout) {
+						$timeout(function() {
+						$rootScope.imgSrc = 'https://www.google.com/images/srpr/logo11w.png';
+					}, 2000);
+				});
+			</pre>
+			
+		</li>
+
+		<li> 
+			<div ng-click="directiveObject.ngSelected()"> ng-selected </div>	
+			<p ng-show="directiveObject.ngSelectedId" ng-init="directiveObject.ngSelectedId=false">
+				The HTML specification does not require browsers to preserve the values of boolean attributes such as selected. (Their presence means true and their absence means false.) If we put an Angular interpolation expression into such an attribute then the binding information would be lost when the browser removes the attribute. The ngSelected directive solves this problem for the selected attribute. This complementary directive is not removed by the browser and so provides a permanent reliable place to store the binding information.
+			</p>
+
+			<pre ng-show="directiveObject.ngSelectedId" ng-init="directiveObject.ngSelectedId=false">
+				&lt;label>Select Two Fish:&lt;/label&gt;
+				&lt;input type="checkbox" ng-model="isTwoFish"&gt;&lt;br/&gt;
+				&lt;select&gt;
+				&lt;option&gt;One Fish&lt;/option&gt;
+				&lt;option ng-selected="isTwoFish"&gt;Two Fish&lt;/option&gt;
+				&lt;/select&gt;
+			</pre>	
+			
+		</li>
+
+		<li> 
+			<div ng-click="directiveObject.ngReadOnly()"> ng-readOnly </div>	
+			<p ng-show="directiveObject.ngReadOnlyId" ng-init="directiveObject.ngReadOnlyId=false">
+				The HTML specification does not require browsers to preserve the values of boolean attributes such as readonly. (Their presence means true and their absence means false.) If we put an Angular interpolation expression into such an attribute then the binding information would be lost when the browser removes the attribute. The ngReadonly directive solves this problem for the readonly attribute. This complementary directive is not removed by the browser and so provides a permanent reliable place to store the binding information.
+			</p>
+			
+		</li>
+
+		<li> 
+			<div ng-click="directiveObject.ngDisabled()"> ng-disabled </div>	
+			<p ng-show="directiveObject.ngDisabledId" ng-init="directiveObject.ngDisabledId=false">
+				This directive sets the disabled attribute on the element if the expression inside ngDisabled evaluates to truthy.
+			</p>
+			
+		</li>																		
+
+
+	</ul>
+
+</div>

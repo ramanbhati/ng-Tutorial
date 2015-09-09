@@ -1,0 +1,45 @@
+<div>
+	<h3>Controller </h3>
+	<ul> <li> Controller is a function defined on the module object. </li> <li>This function adds additional functionality to the scope of the view. </li> <li> Angular uses scopes to isolate the functionality of the views, controllers and directives. </li> </ul>
+
+	<h4> Controller Heirarchy (Scopes within scope)</h4>
+	 <p> Every part of an angular app has a parent scope. All scopes are created with prototypal inheritance. It means that they have access to their parent scopes. </p> 	
+	<br>
+	
+	<p>	If Angular can't find any property on current scope, it searches the parent scope and keeps searching until it finds the property. While searching, it can reach to the root scope as well. If the property is not found then it moves on and does not update the view. </p>
+	<br>
+
+	It is not a good practice to allow DOM interaction or data manipulation inside the controller.
+	<pre>
+		var app = angular.module('app', []);
+			app.controller('FirstController', function($scope) {
+			$scope.message = "hello";
+		});
+	</pre>
+	<pre>
+		app.controller('FirstController', function($scope) {
+			$scope.counter = 0;
+			$scope.add = function(amount) { $scope.counter += amount; };
+			$scope.subtract = function(amount) { $scope.counter -= amount; };
+		});
+	</pre>
+	<br>
+	<p> Setting our FirstController in this manner allows us to call add or subtract functions that are defined on the FirstController scope or a containing parent $scope. </p>
+	<br>
+	<p> Using controllers allows us to contain the logic of a single view in a single container. It’s good practice to keep slim controllers. One way that we as AngularJS developers can do so is by using the	dependency injection feature of AngularJS to access services. </p>
+
+	<br>
+	<pre>
+		app.controller('ParentController', function($scope) {
+			$scope.person = {greeted: false};
+		});
+		app.controller('ChildController', function($scope) {
+			$scope.sayHello = function() {
+				$scope.person.name = "Ari Lerner";
+				$scope.person.greeted = true;
+			}
+		});
+	</pre>
+	<br>
+	<p>	If we bind the ChildController under the ParentController in our view, then the parent of the ChildController’s $scope object will be the ParentController’s $scope object. Due to the prototypal behavior, we can then reference data on the ParentController’s containing $scope on the child scope. </p>
+</div>

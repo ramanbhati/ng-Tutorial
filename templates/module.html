@@ -1,0 +1,79 @@
+<div>
+	<h3> Modules </h3>
+	 <p> An app can contain several modules and each module will contain application code. We should always use modules. </p>
+	<ul> 
+		<li>They keep the global name space clean. </li>
+		<li>They make testing easier.</li>
+		<li>They allow you to share the code easily.</li>
+	</ul>
+
+	<h4> How to create a module</h4>
+		<p> After including the angular libraries, and specifying the angular app in the in-built directive ng-app, you can use the angular function and call the module method. This method accepts two parameters. First parameter is name of the module and the second prameter is list of dependencies. This method is also called setter. </p>
+
+		 <pre>
+		 	var myModule = angular.module('myApp', []);
+		 </pre>
+
+		There is a getter method as well which retrieves a module, 
+		when it's name is passed. 
+
+		 <pre>
+		 	var myModule = angular.module('myApp');
+		 </pre>
+
+		<h4> Angular Module Loading </h4>
+		<p>	Angular modules, themselves, have the opportunity to configure themselves before the module actually bootstraps and starts to run. We can apply different sets of logic during the bootstrap phase of the app. </p>
+		<br>
+		<h4>Configuration:</h4>
+		<br>
+		<p> Angular executes blocks of configuration during the provider registration and configuration phases
+		in the bootstrapping of the module. This phase is the only part of the Angular flow that may be
+		modified before the app starts up. </p>
+		<pre>
+			angular.module('myApp', [])
+				.config(function($provide) {
+			});
+		</pre>
+		<br>
+		<p>When writing configuration for a module, it’s important to note that there are only a few types of objects that we can inject into the .config() function: providers and constants. If we inject any old service into a .config() function, then we might accidentally instantiate one before we actually configure it.
+			<br>
+		We can also define multiple configuration blocks, which are executed in order and allow us to focus
+		our configuration in the different phases of the app. </p>
+		<pre>
+			angular.module('myApp', [])
+				.config(function($routeProvider) {
+					$routeProvider.when('/', {
+					controller: 'WelcomeController',
+					template: 'views/welcome.html'
+				});
+			})
+			.config(function(ConnectionProvider) {
+				ConnectionProvider.setApiKey('SOME_API_KEY');
+			});
+		</pre>
+		<br>
+		<h4>Run: </h4>
+		<p> Unlike the configuration blocks, run blocks are executed after the injector is created and are the first
+		methods that are executed in any Angular app.
+		Run blocks are the closest thing in Angular to the main method. The run block is code that is typically
+		hard to unit test and is related to the general app.
+		Typically, these run blocks are places where we’ll set up event listeners that should happen at the
+		global scale of the app. For example, we’ll use the .run() block to set up listeners for routing events
+		or unauthenticated requests. </p>
+
+		<pre>
+		angular.module('myApp', [])
+			.run(function($rootScope, AuthService) { $rootScope.$on('$routeChangeStart',
+				function(evt, next, current) {
+					// If the user is NOT logged in
+					if (!AuthService.userLoggedIn()) {
+					if (next.templateUrl === "login.html") {
+					// Already heading to the login route so no need to redirect
+					} else {
+					$location.path('/login');
+					}
+				}
+			});
+		});
+		</pre>
+</div>

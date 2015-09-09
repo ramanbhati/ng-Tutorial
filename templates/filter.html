@@ -1,0 +1,57 @@
+<div>
+	<h3> Filters </h3>
+	<ul> <li>Filters provide a way to format the data we display to the user.</li> <li>Filters can be used in HTML file by using the '|' pipe or in javascript file by $filter service. </li>
+	<li>To pass an argument to a filter in HTML file, use colon sign ':' after the filter name. </li>
+	</ul>
+	<br>
+	For instance, let’s say we want to capitalize our string. We can either change all the characters in a string to be capitalized, or we can use a filter.
+
+	<pre>
+		&lt;div&gt; {{name | uppercase} &lt;/div&gt;
+	</pre>
+
+	We can also use filters from within JavaScript by using the $filter service. For instance, to use the lowercase JavaScript filter:
+
+	<pre>
+	app.controller('DemoController', ['$scope', '$filter',
+		function($scope, $filter) {
+			$scope.name = $filter('lowercase')('Ari');
+		}
+	]);
+	</pre>
+	<ul>
+	There are few in-built filters available:
+	<li> Currency </li>
+	The currency filter formats a number as currency. In other words, 123 as currency looks like:
+	<pre>
+		 &lt;div&gt; {{ 123 | currency } &lt;/div&gt;
+	</pre>
+		Currency gives us the option of displaying a currency symbol or identifier. The default currency
+		option is that of the current locale; however, we can pass in a currency to display
+	<br> <li> Date </li>
+		The date filter allows us to format a date based upon a requested format style. The date formatter
+		provides us several built-in options.
+	<br><li> Function </li> Runs a function on the data and returns a non falsy output. It will run the function over each element of the array, and the results that return as non-falsy will
+	appear in the new array. For instance, selecting all of the words that have the letter e in them, we could run our filter like so:
+	<pre>
+		 &lt;div&gt;{{ ['Ari', 'Lerner', 'Likes', 'To', 'Eat', 'Pizza'] | filter:'e' } &lt;/div&gt;
+	</pre>
+	Output: ["Lerner","Likes","Eat"]
+
+	<br> <li> JSON </li> It takes javascript object and returns a string
+		The json filter will take a JSON, or JavaScript object, and turn it into a string. This transformation
+		is very useful for debugging purposes:
+		<pre>
+		 &lt;div&gt;{{ {'name': 'Ari', 'City': 'San Francisco'} | json } &lt;/div&gt;
+	</pre>	
+	<br><li> Number </li>
+	<br><li> String </li>
+
+	It will accept all elements that match against the string. If we want all the elements that do not match the string, we can prepend a ! to the string.
+
+	<br><li> Object </li>
+	Compares the properties of the objects. It will compare objects that have a property name that matches, as with the simple substring match if only a string is passed in. If we want to match against all properties, we can use the $ as the key.
+	</ul>
+	
+	You can also specify custom filters by first creating a module and then calling filter() method on the module object. 
+</div>

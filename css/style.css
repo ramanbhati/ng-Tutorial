@@ -1,0 +1,126 @@
+#headingArea, #components, #links {
+	display: inline-block;
+}
+
+#components {
+	color: white;
+}
+#headingArea{
+	text-align: center;
+	background-color: black;
+    color: white;
+}
+
+#aboutMePara {
+	margin-top: 5%;
+	margin-left: 3%;
+	width: 46%;
+	display: inline-block;
+}
+
+#aboutMeDiv {
+	background-color: rgba(56, 165, 202, 0.19);
+}
+#aboutMeImage {
+	margin-top: -65%;
+	width: 50%;
+	display: inline-block;
+	align: right;
+}
+
+.componentClass {
+	height: 8vh;
+	background-color: rgb(23, 86, 107);
+	border-bottom: 1px solid white;
+	border-radius: 7px;
+}
+
+.componentClass: hover {
+	background-color: white;
+}
+#directiveSpecialCase {
+	color: rgb(23, 86, 107);
+	text-decoration: none;
+}
+
+a {
+	color: rgb(99, 165, 187); 
+    text-decoration: none;
+}
+
+h3, h4, h5 {
+	color: rgb(23, 86, 107);
+	cursor: pointer;
+}
+a:hover {
+	color: rgb(23, 86, 107);
+	text-decoration: none;
+}
+
+#mainDisplay {
+	height: 86vh;
+}
+
+pre {
+	overflow: auto;
+	white-space: pre-wrap;  
+	width: 70%;
+	background-color: rgb(23, 86, 107);
+    color: white; 
+    text-align: left;
+}
+
+pre:hover {
+	position: relative;
+	width:75%;
+	background: linear-gradient(to right, #1A2427, #17566B );	
+    -webkit-transform: translate3d( 3px, 0px, 0px ) scaleY( 1.1);
+	-webkit-transition: all .5s ease;
+	transform-origin: 70% 0%;
+    -webkit-transform-style: preserve-3d;	
+
+}
+
+.btn-component {
+    color: #fff;
+    background-color: rgb(23, 86, 107);
+    border-color: #17566B;
+    height: 7vh;
+    width: 100%;
+}
+
+.btn-component:hover {
+	color: white;
+    background: linear-gradient(to right, #1A2427, #17566B );	
+    -webkit-transform: translate3d( 3px, 0px, 0px ) scaleY( 1.1);
+	-webkit-transition: all .5s ease;
+	transform-origin: 70% 0%;
+    -webkit-transform-style: preserve-3d;	
+
+}
+
+/*******************INTO.HTML***********************/
+
+#links div {
+	display: inline-block;
+	margin-left: 7%;
+	float: right;
+	font-size: 1.1em;
+	font-weight: 600;
+}
+
+@media only screen 
+  and (max-width: 1024px) {
+  	.btn-component {
+  		font-size: 0.9em;	
+  		white-space: normal;
+  	}
+}
+
+@media only screen 
+  and (max-width: 768px) {
+  	.btn-component {
+  		font-size: 0.7em;	
+  		white-space: normal;
+  	}
+}

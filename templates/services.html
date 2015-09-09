@@ -1,0 +1,57 @@
+<div>
+	<h3> Services </h3>
+		Services provide a method for us to keep data around for the lifetime of the app and communicate across controllers in a consistent manner.
+		<ul>
+			<li>Services are singleton objects that are instantiated only once per app (by the $injector) and lazyloaded (created only when necessary).
+			</li>
+			<li> They provide an interface to keep together those methods
+				that relate to a specific function.
+			</li>
+			<li> $http, for instance, is an example of an AngularJS service. It provides low-level access to the browser’s XMLHttpRequest object. Rather than needing to dirty the application with low-level calls to the XMLHttpRequest object, we can simply interact with the $http API.
+			</li>
+		</ul>
+
+		<pre>
+		angular.module('myApp', [])
+			.factory('UserService', function($http) {
+				var current_user;
+				return {
+					getCurrentUser: function() {
+					return current_user;
+				},
+				setCurrentUser: function(user) {
+					current_user = user;
+				}
+			}
+		});
+		</pre>
+
+		AngularJS makes it very easy to create our own services: All we need to do is register the service.
+		Once a service is registered, the Angular compiler can reference it and load it as a dependency for
+		runtime use. The name registry makes it easy to isolate application dependencies for mocks and
+		stubbing in our tests.
+
+		<h4> Using Services </h4>
+		To use a service, we need to identify it as a dependency for the component where we’re using it: a controller, a directive, a filter, or another service. At run time, Angular will take care of instantiating it and resolving dependencies like normal. To inject the service in the controller, we pass the name as an argument to the controller function. With the dependency listed in the controller, we can execute any of the methods we define on the	service object.
+		<pre>
+		angular.module('myApp', ['myApp.services'])
+			.controller('ServiceController',
+				function($scope, githubService) {
+					// We can call the events function
+					// on the object
+					$scope.events =
+					githubService.events('auser');
+			});
+		</pre>
+
+	<h4>Options for Creating Services</h4>
+	While the most common method for registering a service with our Angular app is through the factory() method, there are some other APIs we can take advantage of in certain situations to
+	shorten our code.
+
+	The five different methods for creating services are:
+	• factory() <br>
+	• service()<br>
+	• constant()<br>
+	• value()<br>
+	• provider()<br>
+</div>

@@ -1,0 +1,136 @@
+<div>
+	<h3> XHR </h3>
+	AngularJS web apps are entirely client-side applications. As we’ve seen, we can write AngularJS applications without integrating with a back end at all and still have a dynamic, responsive web app. Without a back end, we are limited to only showing information that we have at load time. Angular
+	provides us several methods if we want to integrate our AngularJS app with information from a
+	remote server.
+
+<h4>Using $http </h4>
+<ul> <li>We can directly call out using the built-in $http service. </li> <li> The $http service is simply a wrapper around the browser’s raw XMLHttpRequest object. </li>
+<li> The $http service is a function that takes a single argument: a configuration object that is used to generate a HTTP request. The function returns a promise that has two helper methods: success and
+error.</li>
+</ul>
+The most basic usage of the method looks like:
+	<pre>
+		$http({
+			method: 'GET',
+			url: '/api/users.json'
+			}).success(function(data, status, headers, config) {
+			// This is called when the response is
+			// ready
+			}).error(function(data, status, headers, config) {
+			// This is called when the response
+			// comes back with an error status
+		});
+	</pre>
+
+	The method actually returns a promise.
+	When this promise is returned, we can return the result of the $http method as a variable and chain other promises atop it to resolve when the HTTP has resolved. We’ll use this technique quite often when we build services so that they can return a promise instead of requiring a callback.
+	<pre>
+		var promise = $http({
+			method: 'GET',
+			url: '/api/users.json'
+		});
+	</pre>
+	<ul> <li></li>
+	Since the $http method returns a promise object, we can use the then method to handle the callback when the response is ready.
+	</li>
+	<li> If we use the then method, we’ll get a special argument that represents the response object for both success and error. Then receives optionally 2 functions as a parameter. Otherwise, we can use the success and error callbacks instead.
+	</li>
+	</ul>
+
+	<h4>Shortcut Methods</h4>
+	The $http service also provides handy methods that allow us to shorten any method calls that don’t
+	require more customization than a URL and a method name (or data with POST or PUT requests).
+	These shortcut methods allow us to modify the above $http GET call to:
+	<pre>
+		// Shortened GET request
+		$http.get('/api/users.json');
+	</pre>
+	<ul>
+		<br><li>
+	get() </li>
+	This method is the shortcut for sending a GET request.
+	The get() function accepts two parameters:
+	• url (string)
+	A relative or absolute URL specifying the destination of the request.
+	• config (optional object)
+
+	<br><li>
+	delete()	</li>
+	This method is the shortcut for sending a DELETE request.
+	The delete() function accepts two parameters:
+	• url (string)
+	This parameter gives a relative or absolute URL specifying the destination of the request.
+	• config (optional object)
+	<br><li>
+	jsonp() 	</li>
+	This method is the shortcut for sending a JSONP request.
+	The jsonp() function accepts two parameters:
+	• url (string)
+	This string is a relative or absolute URL specifying the destination of the request. In order to send
+	the JSONP request, it must contain the string JSON_CALLBACK. For instance:
+	$http
+	.jsonp("/api/users.json?callback=JSON_CALLBACK");
+	• config (optional object)
+	This object is an optional configuration object
+	<br><li>
+	post() </li>
+	This method is the shortcut for sending a POST request.
+	The post() function accepts three parameters:
+	• url (string)
+	This string is a relative or absolute URL specifying the destination of the request.
+	• data (object or string)
+	This object contains the request data content.
+	• config (optional object)
+	This object is an optional configuration object
+	</ul>
+
+	<h4>Using Restangular</h4>
+	Restangular is an Angular service specifically designed simply to fetch data from the rest of the world.	Why not use $http or $resource? Although $http and $resource are built into the framework, they	carry limitations with them. Restangular takes a completely different approach to XHR and makes it a pleasant experience.
+	<br><br>
+
+	<strong>Intro to the Restangular Object: </strong>
+	To use Restangular, there are two ways we can create an object to fetch services. We can either set the base route to fetch objects from:
+	<pre>
+		var User = Restangular.all('users');
+	</pre>
+	Doing so will set all HTTP requests that come from the Restangular service to pull from /users. For	instance, calling getList() on the above object will fetch from /users:
+	<br>
+	<pre>
+		var allUsers = User.getList(); // GET /users
+	</pre>
+
+	It’s also possible to fetch nested requests for a single objecT. Instead of passing only a route, we can pass a unique ID to pull from as well:
+	<pre>
+		var oneUser = Restangular.one('users', 'abc123');
+	</pre>
+
+	This code will generate the request /users/abc123 when calling get() on it.
+	<pre>
+		oneUser.get().then(function(user) {
+		// GET /users/abc123/inboxes
+		user.getList('inboxes');
+		});
+	</pre>
+
+	As you can see, Restangular is smart enough to figure out how to construct URLs based	upon the methods that we are calling on the Restangular source object. Sometimes, however, it
+	is convenient to set the URL that we’re fetching, especially if our back end doesn’t support pure RESTful APIs.
+	To set the URL for a specific request, we can pass a separate argument using the allUrl method:
+	
+	<pre>
+		// All URLs on searches will use
+		// `http://google.com/` as the baseUrl
+		var searches =
+		Restangular.allUrl('one', 'http://google.com/');
+		// Will send a request to GET http://google.com/
+		searches.getList();
+	</pre>
+
+	Additionally, we can set the base URL for one particular request, rather than manipulating the entire request using oneUrl:
+	<pre>
+		var singleSearch =
+		Restangular.oneUrl('betaSearch', 'http://beta.google.com/1');
+		// Trigger a request to GET http://google.com/1
+		singleSearch.get();
+	</pre>
+</div>

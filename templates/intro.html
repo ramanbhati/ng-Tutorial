@@ -1,0 +1,120 @@
+<h3> Introduction to Angular JS </h3>
+<ul>
+	<li>
+		<h4 ng-click="introObject.whyAngularDesc()"> Why Angular JS </h4>	
+			<p ng-show="introObject.whyAngularDescId" ng-init="introObject.whyAngularDescId=false">
+				In other javascript libraries and frameworks, the developer has to have the information about the structure of the DOM in order to modify the structure. But, AngularJS allows one portion of yhr entire page to be an Angular application. This gives a developer the flexibility to use other libraries or frameworks outside that portion.
+			</p> 	
+	</li>
+
+	<li>
+		<h4> Features </h4>
+		<ul>
+			<li>
+				<h5 ng-click="introObject.dataBinding()"> Data Binding </h5>	
+				<p ng-show="introObject.dataBindingId" ng-init="introObject.dataBindingId=false">
+					In earlier frameworks, the controller used to combine data from models and generate s view. This is a one way binding approach. What Angular does is, instead of merging data into a template and replacing DOM elements, it creates line templates as views and individual components of the views are rendered dynamically live. Angular keeps and eye on model when it thinks that the value can change
+				    , it will call $digest() method on the value to make a dirty check. This is an efficient process.
+				</p> 
+
+				<pre  ng-show="introObject.dataBindingId" ng-init="introObject.dataBindingId=false">
+					
+					&lt;input ng-model="person.name" type="text"&gt;
+					&lt;h1&gt;Hello {{ person.name }&lt;/h1&gt;
+				
+				</pre>
+			</li>
+
+			<li>
+				<h5 ng-click="introObject.dependencyInjection()"> Dependency Injection </h5>	
+				<p ng-show="introObject.dependencyInjectionId" ng-init="introObject.dependencyInjectionId=false">
+					Dependency Injection (DI) is a software design pattern that deals with how components get hold of their dependencies.
+					The Angular injector subsystem is in charge of creating components, resolving their dependencies, and providing them to other components as requested.
+					Components such as services, directives, filters, and animations are defined by an injectable factory method or constructor function. These components can be injected with "service" and "value" components as dependencies. The run method accepts a function, which can be injected with "service", "value" and "constant" components as dependencies. 
+					The config method accepts a function, which can be injected with "provider" and "constant" components as dependencies.
+				</p>
+			</li>
+			
+			<li>
+			<h5 ng-click="introObject.templates()"> Templates </h5>	
+				<p ng-show="introObject.templatesId" ng-init="introObject.templatesId=false">
+					In Angular, templates are written with HTML that contains Angular-specific elements and attributes. Angular combines the template with information from the model and controller to render the dynamic view that a user sees in the browser.
+				</p>
+
+				<pre ng-show="introObject.templatesId" ng-init="introObject.templatesId=false">
+					angular.module('myApp', [
+						'ngRoute',
+						'myApp.services',
+						'myApp.directives'])
+					.config(function($routeProvider) {
+						$routeProvider
+						.when('/', {
+							controller: 'MainController',
+							templateUrl: 'templates/main.html',
+						})
+						.otherwise({
+							redirectTo: '/'
+						});
+					});
+				</pre>	
+				
+			</li>
+			<li>
+				<a id="directiveSpecialCase" href="#/directive"> Directives </a>
+			</li>
+		</ul>
+	</li>
+	<li>
+			<h4 ng-click="introObject.scopeVar()">  Understanding the Scope variable </h4>	
+			<p ng-show="introObject.scopeVarId" ng-init="introObject.scopeVarId=false">
+				Scope works like a glue between the controller and views. Before the view is rendered, the view template is linked to the scope and DOM is updated as soon as any property on the scope changes. This is called live binding. Because of this binding, as soon as the view is changed, scope is notified and as soon as the scope is changed, the view is notified.
+					<br>
+				When Angular generates the view, it first creates a binding from the root ng-app element to the $rootScope. $rootScope is parent of all scope objects. When we create ng-controller, it creates a new child $scope object on $rootScope.
+
+				<h5>Scope Life Cycle: </h5>  
+				1) Creation: When the controller is created, Angular creates a new scope and passes this new scope for the controller at runtime.
+				<br>
+				2) Linking: When the scope is linked to the view, all directives that creates scopes will register their watches on the parent scope. These watches propogate model changes from view to directive. 
+				<br>
+				3) Updating: During the $digest cycle, which executes on the $rootScope, all children scopes will perform dirty digesting. 
+				<br>
+				4) Destruction.
+
+
+			</p>
+	</li>
+	<li>
+		<h4 ng-click="introObject.bestPractices()"> Best Practices </h4>
+		<div ng-show="introObject.bestPracticeId" ng-init="introObject.bestPracticeId=false">	
+			<ul>
+				<li>
+					Use Dependency Injection for everything.
+				</li>
+				<li>
+					Always wrap callbacks for third party API into $apply.
+				</li>
+
+				<li>
+					Extend the HTML. Make it as descriptive as possible by making custom directives. One can know if he is making a goo Angular app if by reading the HTML, he can understand the functioning of the app.
+				</li>
+
+				<li>
+					Separate presentation and business logic.
+				</li>
+
+				<li>
+					Treat scope as read-only in templates and
+					Treat scope as write-only in controllers.
+				</li>
+
+				<li>
+					The $watch getter function must always be fast and idempotent.
+				</li>				
+
+				<li>
+					Develop your code with non-minified libraries. (To file an issue, you might want to note the function name and line number etc.)
+				</li>				
+			</ul>
+		</div>
+	</li>
+</ul>
