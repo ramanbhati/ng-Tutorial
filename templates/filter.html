@@ -10,6 +10,13 @@
 		&lt;div&gt; {{name | uppercase} &lt;/div&gt;
 	</pre>
 
+	<div class="tryBlock"> <p> Try it yourself # </p>
+		<label>Enter some text here:</label>
+		<input type="text" ng-model="nameFilter.uppercase" class="tryBlockElements">
+		<br>
+		 <div ng-model="nameFilter.uppercase" class="tryBlockElements"> {{nameFilter.uppercase | uppercase}} </div>
+
+	</div>
 	We can also use filters from within JavaScript by using the $filter service. For instance, to use the lowercase JavaScript filter:
 
 	<pre>
@@ -26,6 +33,14 @@
 	<pre>
 		 &lt;div&gt; {{ 123 | currency } &lt;/div&gt;
 	</pre>
+
+	<div class="tryBlock"> <p> Try it yourself # </p>
+		<label>Enter some number here:</label>
+		<input type="text" ng-model="nameFilter.currency" class="tryBlockElements">
+		<br>
+		 <div ng-model="nameFilter.currency" class="tryBlockElements"> {{nameFilter.currency | currency}} </div>
+
+	</div>
 		Currency gives us the option of displaying a currency symbol or identifier. The default currency
 		option is that of the current locale; however, we can pass in a currency to display
 	<br> <li> Date </li>
@@ -38,12 +53,40 @@
 	</pre>
 	Output: ["Lerner","Likes","Eat"]
 
+	<div class="tryBlock"> <p> Try it yourself # </p>
+	<label> Sample Array </label>
+			 <div ng-model="filterObject.functionExample" class="tryBlockElements">
+		 	 {{ filterObject.arrayExample  |  filter :  filterObject.functionExample }} | {{ filterObject.functionExample }} 
+		 </div>
+		<label>Enter some filtering text here:</label>
+		<input type="text" ng-model="filterObject.functionExample" class="tryBlockElements">
+		<br>
+
+	</div>
+
 	<br> <li> JSON </li> It takes javascript object and returns a string
 		The json filter will take a JSON, or JavaScript object, and turn it into a string. This transformation
 		is very useful for debugging purposes:
 		<pre>
 		 &lt;div&gt;{{ {'name': 'Ari', 'City': 'San Francisco'} | json } &lt;/div&gt;
 	</pre>	
+
+	<div ng-init="filterObject.json=''" class="tryBlock"> <p> Try it yourself # </p>
+	<label> Sample JSON Object </label>
+	
+	<div ng-model="filterObject.jsonExample" class="tryBlockElements">
+		 	 {{ filterObject.jsonExample }} 
+	</div>	
+	<button ng-click="filterObject.jsonFunc()"> JSON to String </button>
+
+	<div ng-model="filterObject.jsonExample" class="tryBlockElements">
+		 	 {{ filterObject.jsonExample | filterObject.json }} 
+	</div>
+
+
+		<br>
+	</div>
+
 	<br><li> Number </li>
 	<br><li> String </li>
 

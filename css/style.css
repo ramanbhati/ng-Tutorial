@@ -2,6 +2,28 @@
 	display: inline-block;
 }
 
+.tryBlock {
+	border: 1px solid rgb(181, 181, 181);
+	width: 50%;
+	min-height: 15vh;
+	word-wrap: break-word;
+	/*white-space: nowrap;*/
+}
+
+.tryBlock p {
+	font-size: 0.8em;
+	color: rgb(181, 181, 181);
+}
+
+.tryBlockElements {
+	margin-left:2%;
+}
+
+.tryBlock label{
+	font-size: 0.8em;
+	font-weight: 300;
+	color: rgb(181, 181, 181);
+}
 #components {
 	color: white;
 }
