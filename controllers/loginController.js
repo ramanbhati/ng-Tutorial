@@ -1,9 +1,22 @@
 tutorialApp.controller('loginController', function($scope, $location, getLoginDataService) {  
- var components = document.getElementById('components');
-  components.style.display = 'none';
+ $scope.loginObject = {}; 
 
-  var links = document.getElementById('links');
-  links.style.display = 'none';
+ var init = function () {
+ 	var components = document.getElementById('components');
+	components.style.display = 'none';
+
+  	var links = document.getElementById('links');
+  	links.style.display = 'none';
+
+  	setTimeout (function () {
+	  	var emailLocalStorage = document.getElementById("emailId");
+		emailLocalStorage.value = localStorage.email;
+
+		var passwordLocalStorage = document.getElementById("passwordId");
+		passwordLocalStorage.value = localStorage.password;
+  	}, 1000);
+  	
+ }; init();
   
   $scope.loginObject = {  	
 
@@ -13,6 +26,12 @@ tutorialApp.controller('loginController', function($scope, $location, getLoginDa
     		email : $scope.loginObject.email,
     		password : $scope.loginObject.password
     	};
+
+    	var rememberLogin = $scope.loginObject.rememberLogin;
+		if (rememberLogin) {
+			localStorage.setItem("email", $scope.loginObject.email);
+			localStorage.setItem("password", $scope.loginObject.password);
+	}
 
     	$scope.loginObject.matchLoginData(registeredUsers);
     },
@@ -53,17 +72,4 @@ tutorialApp.controller('loginController', function($scope, $location, getLoginDa
 		$location.path('/login').replace(); 
 	}
   }
-
-  	var rememberLogin = $scope.loginObject.rememberLogin;
-	if (rememberLogin) {
-		localStorage.setItem("email", $scope.loginObject.email);
-		localStorage.setItem("password", $scope.loginObject.password);
-
-		var emailLocalStorage = document.getElementById("emailId");
-		emailLocalStorage.value = localStorage.email;
-
-		var passwordLocalStorage = document.getElementById("password");
-		passwordLocalStorage.value = localStorage.password;
-	}
-
 });

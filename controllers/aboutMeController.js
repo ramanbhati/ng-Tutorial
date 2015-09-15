@@ -1,5 +1,5 @@
-tutorialApp.controller('xhrController', function($scope) {
-  $scope.xhrObject = {
+tutorialApp.controller('aboutMeController', function($scope) {
+  $scope.aboutMeObject = {
   
   };
 });
