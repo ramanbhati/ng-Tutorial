@@ -1,13 +1,12 @@
-tutorialApp.controller('loginController', function($scope, $location, getLoginDataService) {
-  
-  $location.replace();  
-  components = document.getElementById('components');
+tutorialApp.controller('loginController', function($scope, $location, getLoginDataService) {  
+ var components = document.getElementById('components');
   components.style.display = 'none';
 
-  links = document.getElementById('links');
+  var links = document.getElementById('links');
   links.style.display = 'none';
   
   $scope.loginObject = {  	
+
   	loginUserFunc : function () {
   		$scope.loginObject.loginErrorMessage = "";  		
     	var registeredUsers = {
@@ -54,4 +53,17 @@ tutorialApp.controller('loginController', function($scope, $location, getLoginDa
 		$location.path('/login').replace(); 
 	}
   }
+
+  	var rememberLogin = $scope.loginObject.rememberLogin;
+	if (rememberLogin) {
+		localStorage.setItem("email", $scope.loginObject.email);
+		localStorage.setItem("password", $scope.loginObject.password);
+
+		var emailLocalStorage = document.getElementById("emailId");
+		emailLocalStorage.value = localStorage.email;
+
+		var passwordLocalStorage = document.getElementById("password");
+		passwordLocalStorage.value = localStorage.password;
+	}
+
 });
