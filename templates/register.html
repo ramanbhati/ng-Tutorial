@@ -1,0 +1,35 @@
+<div style="margin-left: 20%">
+	<h3> Register </h3>
+
+	<form name="myForm" novalidate>
+
+		<p>Username:<br>
+		  <input type="text" name="user" ng-model="registerObject.userName" required>
+		  <span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+		  <span ng-show="myForm.user.$error.required">Username is required.</span>
+		  </span>
+		</p>
+
+		<p>Password:<br>
+		  <input type="password" ng-model="registerObject.password" required>
+		  <span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+		  <span ng-show="myForm.user.$error.required">Password is required.</span>
+		  </span>
+		</p>
+
+		<p>Email:<br>
+		  <input type="email" name="email" ng-model="registerObject.email" required>
+		  <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+		  <span ng-show="myForm.email.$error.required">Email is required.</span>
+		  <span ng-show="myForm.email.$error.email">Invalid email address.</span>
+		  </span>
+		</p>
+
+			<br>
+		 <button ng-click="registerObject.registrationFunc()"> Register </button>
+		 <a href="#/login"> Already have an id? Login here!! </a>
+		 {{registerObject.messageUsernameError}}
+		 {{registerObject.messageEmailError}}
+		</form>
+
+</div>

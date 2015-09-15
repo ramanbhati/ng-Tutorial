@@ -8,6 +8,7 @@
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>
   <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="services/loginService.js"></script> 
   <script type="text/javascript" src="controllers/introController.js"></script>
   <script type="text/javascript" src="controllers/moduleController.js"></script>
   <script type="text/javascript" src="controllers/ctrlController.js"></script>
@@ -16,6 +17,9 @@
   <script type="text/javascript" src="controllers/routingController.js"></script>
   <script type="text/javascript" src="controllers/servicesController.js"></script>  
   <script type="text/javascript" src="controllers/xhrController.js"></script>
+  <script type="text/javascript" src="controllers/loginController.js"></script>
+
+  <script type="text/javascript" src="controllers/registerController.js"></script>
   <script type="text/javascript" src="controllers/aboutMeController.js"></script>
   
   </head>
@@ -64,12 +68,12 @@
           </div>
 
           <div id="usefulInfo" class="componentClass">
-             <a class="btn btn-component" href="#/intro">Useful Information </a>
+             <a class="btn btn-component" href="#/aboutMe">Useful Information </a>
               
           </div>
 
           <div id="thingTogether" class="componentClass">
-          <a class="btn btn-component" href="#/intro">Putting all things together </a>
+          <a class="btn btn-component" href="#/aboutMe">Putting all things together </a>
  
               
           </div>
@@ -77,8 +81,8 @@
 
         <div id="mainDisplay" class="col-sm-10 col-xs-10">
           <div class="row">
+            <div ng-controller="loginController"><a href="#/login" ng-click="loginObject.logout()"style="color: red; float: right; margin-right: 3%"> Logout </a></div>
             <div id="links" class="col-sm-12 col-xs-12">
-              <div><a href="#/aboutMe"> Contact Info</a></div>
               <div><a href="#/aboutMe"> Resume </a></div>
               <div><a href="#/aboutMe"> Research</a></div>
               <div><a href="#/aboutMe"> Recent Projects </a></div>

@@ -2,6 +2,10 @@ var tutorialApp = angular.module('tutorialApp', ['ngRoute']);
 
 tutorialApp.config(['$routeProvider', function ($routeProvider) {
   $routeProvider.
+          when('/', {
+            templateUrl: 'templates/login.html', 
+            controller: 'loginController'
+          }).
           when('/intro', {
             templateUrl: 'templates/intro.html', 
             controller: 'introController'
@@ -37,8 +41,17 @@ tutorialApp.config(['$routeProvider', function ($routeProvider) {
           when('/aboutMe', {
             templateUrl: 'templates/aboutMe.html', 
             controller: 'aboutMeController'
+          }).
+          when('/login', {
+            templateUrl: 'templates/login.html', 
+            controller: 'loginController'
+          }).
+          when('/register', {
+            templateUrl: 'templates/register.html', 
+            controller: 'registerController'
           })
 }]);
+
 
 // var serverUrl = 'http://127.0.0.1:1337/';
 // testApp.factory('Raman', function($http, $q) {
